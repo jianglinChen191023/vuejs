@@ -7,20 +7,46 @@
 <body>
 
 <div id="app">
-  <ul>
-    <li v-for="item in movies">{{item}}</li>
-  </ul>
+  <h2>当前计数: {{counter}}</h2>
+  <button @click="add">+</button>
+  <button @click="less">-</button>
+</div>
+
+<div id="app2">
+  <h2>当前计数: <span id="counter">0</span></h2>
+  <button id="add">+</button>
+  <button id="less">-</button>
 </div>
 
 <script src="../js/vue.js"></script>
 <script>
+  // ## Vue
   const app = new Vue({
     el: "#app",
     data: {
-      message: "Hello",
-      movies: ['星际穿越', '大话西游', '少年派', '盗梦空间']
+      counter: 0
     },
+    methods: {
+      add: function () {
+        this.counter++;
+      },
+      less: function () {
+        this.counter--;
+      }
+    }
+  });
+</script>
 
+<script>
+  // ## JavaScript
+  document.getElementById("add").addEventListener("click", function(){
+    let counter = document.getElementById("counter");
+    counter.innerText = parseInt(counter.innerText) + 1;
+  });
+
+  document.getElementById("less").addEventListener("click", function(){
+    let counter = document.getElementById("counter");
+    counter.innerText = parseInt(counter.innerText) - 1;
   });
 </script>
 </body>
