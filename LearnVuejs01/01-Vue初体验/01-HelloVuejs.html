@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue.js</title>
+</head>
+<body>
+
+<!-- 声明式渲染 -->
+<div id="app">
+  <h1>{{message}}</h1>
+  <h1>{{name}}</h1>
+</div>
+
+<div id="app2"></div>
+
+<script src="../js/vue.js"></script>
+<script>
+  // ## Vue.js (编程范式: 声明式编程)
+  // ES6 let(变量)/const(常量)
+  // 创建一个 Vue 对象
+  // {}中包含了 el 属性: 该属性决定了这个 Vue 对象挂载到哪一个元素上
+  // {}中包含了 data 属性: 该属性中通常会存储一些数据
+  let app = new Vue({
+    el: "#app", // 用于挂载要管理的元素
+    data: { // 定义数据
+      message: "HelloVuejs",
+      name: "Orange"
+    },
+  });
+
+  // ### 修改数据
+  // > 当数据发生改变的时候, 界面会自动响应, 自动更改
+  app.$data.message = "今天天气不错!";
+
+  // ## 元素js的做法 (编程范式: 命令式编程)
+  // 1. 创建 div 元素, 设置id属性
+  let el = document.getElementById("app2");
+  // 2. 定义一个变量叫 message
+  let message = "HelloJs";
+  // 3. 将 message 变量放在前面的 div 元素中显示
+  el.innerText = message;
+  // ### 修改数据
+  // 4. 修改 message 的数据: 今天天气不错!
+  message = "今天天气不错!";
+  // 5. 将修改后的数据再次替换到元素中
+  el.innerText = message;
+</script>
+</body>
+</html>
