@@ -1,0 +1,45 @@
+<!--
+@author Orange
+@date 2021/4/29
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>01-Mustache语法.html</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{message}}</h2>
+  <h2>{{message}}, 李银河!</h2>
+  <!-- Mustache 语法中, 不仅仅可以写变量, 也可以写简单的表达式 -->
+  <h2>{{firstName + '' + lastName}}</h2>
+  <h2>{{firstName}} {{lastName}}</h2>
+  <h2>{{counter * 2}}</h2>
+
+  <!-- undefiend<未定义>; null; 0; ''<空字符串> 都会被评定为: false -->
+  <h2>{{test0 ? test0 : "不存在"}}</h2>
+  <h2>{{test1 ? test1 : "不存在"}}</h2>
+  <h2>{{test2 ? test2 : "不存在"}}</h2>
+  <h2>{{test3 ? test3 : "不存在"}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      firstName: 'kobe',
+      lastName: 'bryant',
+      counter: 100,
+      test1: null,
+      test2: 0,
+      test3: '',
+    }
+  })
+</script>
+
+</body>
+</html>
