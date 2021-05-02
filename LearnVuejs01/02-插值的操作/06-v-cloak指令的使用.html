@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>06-v-cloak指令的使用.html</title>
+
+  <style>
+      [v-clock] {
+          display: none;
+      }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <h2 v-clock>Hello {{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  setTimeout(() => {
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Vue.js'
+      }
+    })
+  }, 10000)
+
+</script>
+
+</body>
+</html>
