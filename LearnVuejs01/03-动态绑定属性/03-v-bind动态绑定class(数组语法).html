@@ -1,0 +1,56 @@
+<!--
+@author Orange
+@date 2021-05-02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-v-bind动态绑定class(数组语法)</title>
+  <style>
+      .active {
+          color: red
+      }
+
+      .line {
+          background-color: orange;
+      }
+
+      .active2 {
+          color: blue
+      }
+
+      .line2 {
+          background-color: red;
+      }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <h2 :class="['active',{'line':isLine}]">{{message}}</h2>
+
+  <h2 :class="getClasses">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      active: 'active2',
+      line: 'line2',
+      isLine: true
+    },
+    methods: {},
+    computed: {
+      getClasses: function () {
+        return [this.active, this.line]
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

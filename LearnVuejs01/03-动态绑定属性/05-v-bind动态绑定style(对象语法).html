@@ -1,0 +1,35 @@
+<!--
+@author Orange
+@date 2021-05-02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>05-v-bind动态绑定style(对象语法)</title>
+</head>
+<body>
+
+<div id="app">
+  <!--  <h2 :style="{key(属性名):value(属性值)}">{{message}}</h2>-->
+  <!-- 属性值必须加上单引号, 否则会当做一个变量去解析 -->
+  <h2 :style="{color:color}">{{message}}</h2>
+
+  <!-- 属性值中的 fontSize 当成一个变量使用 -->
+  <h2 :style="{fontSize:fontSize+'px'}">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      color: 'red',
+      fontSize: 50
+    }
+  })
+</script>
+
+</body>
+</html>
