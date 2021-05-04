@@ -1,0 +1,33 @@
+<!--
+@author Orange
+@date 2021-05-04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-const的使用</title>
+</head>
+<body>
+
+<script>
+  // 1. 注意一: 一旦 const 修饰的标识符被赋值后, 不能重新赋值
+  const name = "name";
+  // 不能对常量重新赋值
+  // name = "jfdlk";
+
+  // 2.注意二: 在使用 const 定义标识符, 必须赋值
+  // const name; // 必须赋值
+
+  // 3.注意三: 常量的含义是指向的对象不能修改, 但是可以改变对象内部的属性
+  const obj = {
+    name: 'why',
+    age: 18,
+    height: 1.88
+  };
+
+  obj.age = '20';
+</script>
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!--
+@author Orange
+@date 2021-05-03
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>01-块级作用域</title>
+</head>
+<body>
+<!-- 点击按钮打印相应的文本 -->
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+
+<script>
+  // ## 变量`声明提前`: JavaScript函数里所有声明的变量(但不涉及赋值), 都会被"提前"至函数体的顶部, 执行到var时才会被真正的赋值
+  console.log(price); // ==> undefined, 变量是存在的, 但其值是"undefined"
+  var price = 234;
+
+  // ##### 函数作用域为例:
+  var scope = "global";
+  function f() {
+    console.log(scope); // 输出"undefined", 而不是"global"
+    var scope = "local"; // 变量在这里赋初始值, 但变量本身在函数体内如何地方均是有定义的
+    console.log(scope); // 输出"local"
+  }
+  // 为什么 console.log(scope); // 输出"undefined", 而不是"global"
+  // 解析:
+  // 函数内的变量声明"提前"至函数体的顶部, 同时变量初始化留在原来的位置
+  function ff() {
+    var scope; // 函数体内的局部变量遮盖了同名的全局变量
+    console.log(scope); // 输出"undefined", 而不是"global"
+    var scope = "local"; // 变量在这里赋初始值, 但变量本身在函数体内如何地方均是有定义的
+    console.log(scope); // 输出"local"
+  }
+  // 一些程序员特意将变量声明至函数体顶部, 而不是将声明靠近放在使用变量之处。这样的做法使得他们的源代码非常清晰地反映了真实的变量作用域
+  // 小习惯: 最好将变量声明写在函数体顶部
+
+  // 花括号{} 内的每一段代码都具有各自的作用域, 而且变量在声明它们的代码段之外是不可见的, 我们称之为`块级作用域`(block scope)
+  // 在 ES6 之前，JavaScript 只有两种作用域： 全局变量 与 函数内的局部变量。
+  // 在 javaScript (ES5)中没有块级作用域。javaScript 取而代之地使用了`函数作用域`(function scope): 变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的
+  // 1. 变量作用域: 变量在什么范围内是可用的
+  // 扩展: 变量作用域(ES5)
+  // 一个变量的作用域(scope)是程序源代码中定义这个变量的区域。全局变量拥有全局作用域, 在 JavaScript 代码中的然后地方都是有定义的。
+  // 然而在函数内声明的变量只有在函数体内有定义。它们是局部变量, 作用域是局部性的。函数参数也是局部变量, 它们只在函数体内有定义
+  // 1. 在函数外声明的变量作用域是全局的
+  // 2. 在函数内声明的变量作用域是局部的（函数内）
+  {
+    var name = 'why';
+    console.log(name); // ==> why
+  }
+
+  // 使用 var 关键字声明的变量不具备块级作用域的特性，它在 {} 外依然能被访问到。
+  console.log(name); // ==> why
+
+  // 在 ES6 之前，是没有块级作用域的概念的。
+  // ES6 可以使用 let 关键字来实现块级作用域。
+  // let 声明的变量只在 let 命令所在的代码块 {} 内有效，在 {} 之外不能访问。
+  {
+    let name2 = 'why';
+    console.log(name2); // ==> why
+  }
+
+  // 这里不能使用 name2 变量
+  // console.log(name2);
+
+  console.log("=============== 块级作用域引起的问题 ==============")
+  // 2. 块级作用域引起的问题
+  var func;
+  if (true) {
+    var name3 = 'why';
+
+    func = function () {
+      console.log(name3);
+    }
+  }
+
+  // 外界成功修改
+  name3 = "kobe";
+  func();
+
+  console.log("=============== 函数作用域 ==============")
+  // 函数作用域
+  var name4 = "why";
+
+  function abc(name4) {
+    console.log(name4);
+  }
+
+  name4 = "kobe";
+  abc("aaaaa");
+
+  console.log("=============== 没有块级作用域引起的问题: for的块级 ==============")
+  // 3. 没有块级作用域引起的问题: for的块级
+  // 使用了 var 关键字，它声明的变量是全局的，包括循环体内与循环体外。
+  // var btns = document.getElementsByTagName("button");
+  // for (var i = 0; i < btns.length; i++) {
+  //   btns[i].addEventListener('click', function () {
+  //     // 点击如何按钮都是: 第5个按钮被点击
+  //     // 遍历完成后, i累加成5
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  // 这里输出 i 为 5
+  // console.log(i)
+
+  // 闭包解决
+  // 为什么闭包可以解决问题: 函数是一个作用域
+  // 在函数内声明的变量只在函数内有定义。它们是局部变量,作用域是局部性的,只能在函数内使用
+  // 如果全局变量和函数定义的变量重名, 那么全局变量会被局部变量所覆盖, 调用的是局部变量
+
+  // var btns = document.getElementsByTagName("button");
+  // for (var i = 0; i < btns.length; i++) {
+  //   (function (i) {
+  //     btns[i].addEventListener('click', function () {
+  //       console.log("第" + i + '个按钮被点击');
+  //     })
+  //   })(i);
+  // }
+
+  // 函数内声明的变量只有在函数体内有定义。它们是局部变量, 作用域是局部性的。函数参数也是局部变量, 它们只在函数体内有定义
+  // (function (i) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // })(0);
+  //
+  // (function (i) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // })(1);
+  //
+  // (function (i) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // })(2);
+  //
+  // (function (i) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // })(3);
+  //
+  // (function (i) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // })(4);
+
+  // 使用 let 关键字， 它声明的变量作用域只在循环体内，循环体外的变量不受影响。
+  // const btns = document.getElementsByTagName("button");
+  // for (let i = 0; i < btns.length; i++) {
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  // 这里 i 不存在
+  console.log(i);
+
+  // ## 理解:
+  // var 只储存一个: 没有作用域, 调用的都会是同一个
+  // let 储存5个: let有作用域, 作用域中各储存一个, 调用该作用域中储存的
+
+  // ### var
+  // var i; // var是没有块级作用域的, 那么这个变量将在全局作用域中提前声明, 成为一个全局变量
+  // {
+  //   var i = 0; // 真正赋值
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   var i = 1; // 重置变量, 使用 var 声明的变量可以在任何地方修改
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   var i = 2;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   var i = 3;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   var i = 4;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+
+  // ### let
+  // {
+  //   let i = 0;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   let i = 1;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   let i = 2;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   let i = 3;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+  //
+  // {
+  //   let i = 4;
+  //   btns[i].addEventListener('click', function () {
+  //     console.log("第" + i + '个按钮被点击');
+  //   })
+  // }
+</script>
+</body>
+</html>
