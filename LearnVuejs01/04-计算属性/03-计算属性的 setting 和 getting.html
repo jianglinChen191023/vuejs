@@ -1,0 +1,57 @@
+<!--
+@author Orange
+@date 2021-05-03
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-计算属性的 setting 和 getting</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{fullName}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      firstName: "Kobe",
+      lastName: "Bryant"
+    },
+    computed: {
+      // 计算属性一般不用 set 方法
+      fullName: {
+        set: function (data) {
+          // console.log(data);
+          // const names = data.split(' ');
+          this.fullName = data;
+          // this.lastName = names[1];
+        },
+        get: function () {
+          return this.firstName + " " + this.lastName;
+        }
+      }
+
+      // fullName: {
+      //   get: function () {
+      //     return this.firstName + " " + this.lastName;
+      //   }
+      // },
+      // 简写
+      // fullName: function () {
+      //   return this.firstName + " " + this.lastName;
+      // },
+
+    }
+  })
+
+
+</script>
+
+</body>
+</html>

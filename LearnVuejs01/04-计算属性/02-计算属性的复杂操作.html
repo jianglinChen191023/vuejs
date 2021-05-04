@@ -1,0 +1,71 @@
+<!--
+@author Orange
+@date 2021-05-02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-计算属性的复杂操作</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>总价格: {{totalPrice1}}</h2>
+  <h2>总价格: {{totalPrice2}}</h2>
+  <h2>总价格: {{totalPrice3}}</h2>
+  <h2>总价格: {{totalPrice4}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      books: [
+        {id: 100, name: 'Unix编程艺术', price: 199},
+        {id: 111, name: '代码大全', price: 199},
+        {id: 112, name: '深入理解计算机原理', price: 199},
+        {id: 113, name: '现代操作系统', price: 199},
+      ]
+    },
+    computed: {
+      totalPrice1: function () {
+        let result = 0;
+        for (let i = 0; i < this.books.length; i++) {
+          result += this.books[i].price;
+        }
+
+        return result;
+      },
+      totalPrice2: function () {
+        let result = 0;
+        for (const index in this.books) {
+          result += this.books[index].price;
+        }
+
+        return result;
+      },
+      totalPrice3: function () {
+        let result = 0;
+        for (const book of this.books) {
+          result += book.price;
+        }
+
+        return result;
+      },
+      totalPrice4: function () {
+        // return this.books.reduce(function (pv, cv) {
+        //   return pv + cv.price;
+        // }, 0);
+
+        return this.books.reduce(function (pv, cv, i, arr) {
+          return pv + arr[i].price;
+        }, 0);
+      },
+    }
+  })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!--
+@author Orange
+@date 2021-05-03
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04-计算属性和 methods 的对比</title>
+</head>
+<body>
+
+<div id="app">
+  <!-- 直接拼接: 语法关于繁琐, 不要在HTML中出现逻辑性的代码  -->
+  <h2>{{firstName}} {{lastName}}</h2>
+  <!-- 通过定义 methods, 不要用 mustache 调用方法! 调用次数超乎想象  -->
+  <!-- vue.js:634 [Vue warn]: You may have an infinite update loop in a component render function. -->
+  <h1>methods: </h1>
+  <h2>{{getFullName()}}</h2>
+  <h2>{{getFullName()}}</h2>
+  <h2>{{getFullName()}}</h2>
+  <h2>{{getFullName()}}</h2>
+  <button @click="getFullName()">调用 getFullName 方法</button>
+  <!-- 调用次数: 408 -->
+  <h2>调用次数: {{getFullNameCount}}</h2>
+  <!-- 通过 computed -->
+  <h1>computed: </h1>
+  <h2>{{fullName}}</h2>
+  <h2>{{fullName}}</h2>
+  <h2>{{fullName}}</h2>
+  <h2>{{fullName}}</h2>
+  <!-- 调用次数: 1 -->
+  <h2>调用次数: {{fullNameCount}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      firstName: 'Kobe',
+      lastName: 'Bryant',
+      getFullNameCount: 0,
+      fullNameCount: 0,
+    },
+    methods: {
+      getFullName: function () {
+        this.getFullNameCount++;
+        return this.firstName + ' ' + this.lastName;
+      }
+    },
+    computed: {
+      fullName: function () {
+        this.fullNameCount++;
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+
+  })
+</script>
+
+</body>
+</html>
