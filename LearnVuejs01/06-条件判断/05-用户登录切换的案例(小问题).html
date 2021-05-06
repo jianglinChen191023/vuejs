@@ -1,0 +1,49 @@
+<!--
+@author Orange
+@date 2021-05-06
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>05-用户登录切换的案例(小问题)</title>
+</head>
+<body>
+<!--
+- 小问题:
+  - 如果我们在有输入内容的情况下, 切换了类型, 我们会发现文字依然显示之前的输入的内容
+  - 但是按道理讲, 我们应该切换到另外应该 input 元素
+  - 在另一个 input 元素中, 我们并没有输入内容
+
+- 问题解答:
+  - 这是因为 Vue 在进行 DOM 渲染时, 出于性能考虑, 会尽可能的复用已经存在的元素, 而不是重新创建新的元素
+  - 在上面的案例中, Vue 内部会发现原来的 input 元素不再使用, 直接作为 else 中的 input 来使用了
+
+- 解决方案
+  - 如果我们不希望 Vue 出现类似重复利用的问题, 可以给对应的 input 添加属性 key
+  - 并且我们需要保证 key 的不同
+-->
+<div id="app">
+  <span v-if="isUser">
+    <label for="username">用户账号</label>
+    <input type="text" id="username" placeholder="用户账号" key="username">
+  </span>
+  <span v-else>
+    <label for="email">用户邮箱</label>
+    <input type="text" id="email" placeholder="用户邮箱" key="email">
+  </span>
+  <button @click="isUser = !isUser">切换类型</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      isUser: true,
+    }
+  })
+</script>
+
+</body>
+</html>

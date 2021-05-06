@@ -1,0 +1,40 @@
+<!--
+@author Orange
+@date 2021-05-06
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>06-v-show的使用</title>
+</head>
+<body>
+<!--
+- v-if 和 v-show 的区别:
+  - 当条件为 false 时
+    - v-if: 包含 v-if 指令的元素, 根本就不会存在 DOM 中
+    - v-show: 只是给我们的元素添加一个行内样式: display: none
+- 开发选择
+   - v-if: 切换一次时使用
+   - v-show: 切换频繁时使用
+ -->
+<div id="app">
+  <h2 v-if="isShow" id="if">{{message}}</h2>
+  <h2 v-show="isShow" id="show">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isShow: true
+    }
+  })
+
+  setTimeout(() => app.isShow = false, 3000)
+</script>
+
+</body>
+</html>

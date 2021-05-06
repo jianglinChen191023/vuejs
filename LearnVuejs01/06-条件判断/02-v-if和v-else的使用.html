@@ -1,0 +1,48 @@
+<!--
+@author Orange
+@date 2021-05-06
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-v-if和v-else的使用</title>
+</head>
+<body>
+
+<div id="app">
+  <h2 v-if="isShow">
+    <die>abc</die>
+    <die>abc</die>
+    <die>abc</die>
+    <die>abc</die>
+    <die>abc</die>
+    {{message}}<br/>
+
+    {{timer}}秒后isShow为false
+  </h2>
+
+
+  <h1 v-else>isShow为false时, 显示我</h1>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isShow: true,
+      timer: 3
+    }
+  })
+
+  setTimeout(() => app.timer--, 1000);
+
+  setTimeout(() => app.timer--, 2000);
+
+  setTimeout(() => app.isShow = false, 3000);
+</script>
+
+</body>
+</html>
