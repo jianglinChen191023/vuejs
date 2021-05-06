@@ -1,0 +1,69 @@
+<!--
+@author Orange
+@date 2021-05-04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-v-on的修饰符</title>
+</head>
+<body>
+
+<div id="app">
+  <h2> divC: {{divC}}</h2>
+  <h2> btn1: {{btn1}}</h2>
+  <h2> 提交: {{prevent}}</h2>
+  <h2> keyup: {{keyup}}</h2>
+  <h2> btn2: {{btn2}}</h2>
+  <div @click="divClick">
+    <!-- .stop 修饰符: 停止冒泡 -->
+    <button @click.stop="btnClick">按钮1</button>
+
+    <!--.prevent 修饰符的使用: 阻止默认行为 -->
+    <form action="baidu">
+      <input type="submit" value="提交" @click.prevent="submitClick">
+    </form>
+
+    <!-- @keyup: 监听某个键盘的键帽 -->
+    <!-- @keyup.enter: 按特定的键才会被触发 -->
+    <input type="text" @keyup.enter="keyUp">
+
+    <!-- .once: 只触发一次回调 -->
+    <button @click.once="btn2Click">按钮2</button>
+  </div>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      divC: 0,
+      btn1: 0,
+      btn2: 0,
+      keyup: 0,
+      prevent: 0
+    },
+    methods: {
+      btnClick() {
+        this.btn1++;
+      },
+      divClick() {
+        this.divC++;
+      },
+      submitClick() {
+        this.prevent++;
+      },
+      keyUp() {
+        this.keyup++;
+      },
+      btn2Click() {
+        this.btn2++;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

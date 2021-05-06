@@ -1,0 +1,71 @@
+<!--
+@author Orange
+@date 2021-05-04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-v-on的参数问题</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>按钮1: {{btn1}}</h2>
+  <h2>按钮2: {{btn2}}</h2>
+  <h2>按钮3:<br>
+    btn3Param1: {{btn3Param1}}<br>
+    btn3Param2: {{btn3Param2}}</h2>
+  <h2>按钮4: {{btn4}}</h2>
+  <!-- 事件调用的方法没有参数 -->
+  <button @click="btn1Click()">按钮1</button>
+  <button @click="btn1Click">按钮1</button>
+
+  <!-- 在事件定义时, 写函数时省略了小括号, 但是方法本身是需要一个参数的, 这个时候,
+   Vue 会默认将浏览器生产的 event 事件对象 作为参数传入到方法中-->
+  <button @click="btn2Click">按钮2</button>
+
+  <!-- 方法定义时, 我们需要event对象, 同时又需要其他参数 -->
+  <!-- 在调用方法时, 如何手动的获取浏览器参数的 event 对象: $event -->
+  <button @click="btn3Click(123,$event)">按钮3</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      btn1: 0,
+      btn2: undefined,
+      btn3Param1: 0,
+      btn3Param2: 0,
+    },
+    methods: {
+      btn1Click() {
+        this.btn1++;
+      },
+      btn2Click(abc) {
+        // @click="btn2Click"
+        // abc == event 对象[object MouseEvent]
+
+        // @click="btn2Click()"
+        // abc == undefined
+        this.btn2 = abc;
+      },
+      btn3Click(abc, event) {
+        this.btn3Param1 = abc;
+        this.btn3Param2 = event;
+      },
+    }
+  });
+
+  // 如果函数需要参数, 但是没有传入, 那么参数的形参为 undefined
+  function f(abc) {
+    console.log(abc);
+  }
+
+  f();
+</script>
+
+</body>
+</html>
