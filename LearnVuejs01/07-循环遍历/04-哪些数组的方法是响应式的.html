@@ -1,0 +1,71 @@
+<!--
+@author Orange
+@date 2021-05-09
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04-哪些数组的方法是响应式的</title>
+</head>
+<body>
+
+<div id="app">
+  <ul>
+    <li v-for="letter in letters">
+      {{ letter }}
+    </li>
+  </ul>
+
+  <button @click="btnClick">按钮</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      letters: ['a', 'b', 'c', 'd']
+    },
+    methods: {
+      btnClick() {
+        // 哪些数组的方法是响应式的:
+        // push(): 数组最后添加一个元素
+        this.letters.push('1');
+
+        // // pop(): 删除数组中的最后一个元素
+        this.letters.pop();
+        //
+        // // shift(): 删除数组中的第一个元素
+        this.letters.shift();
+        //
+        // // unshift(): 在数组最前面添加元素
+        this.letters.unshift('3');
+        //
+        // // splice(开始位置, 从开始位置开始删除的个数（不写默认删除之后的所有元素）, ...插入元素):
+        // // 删除/插入元素
+        this.letters.splice(2, 0, '4', '5');
+        this.letters.splice(2);
+        //
+        // // sort(): 排序
+        this.letters.sort();
+        //
+        // // reverse(): 反转
+        this.letters.reverse();
+
+        // Vue.set(修改的对象, 索引值, 替换的值)
+        Vue.set(this.letters, 0, '6');
+      },
+      btnClick2() {
+        // 单独使用不是响应式的
+
+        // 通过索引值修改数组中的元素
+        this.letters[0] = '2';
+      }
+    }
+  });
+
+</script>
+
+</body>
+</html>
