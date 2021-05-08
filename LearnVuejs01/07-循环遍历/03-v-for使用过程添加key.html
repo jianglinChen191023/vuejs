@@ -1,0 +1,34 @@
+<!--
+@author Orange
+@date 2021-05-07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-v-for使用过程添加key</title>
+</head>
+<body>
+
+<div id="app">
+  <ul>
+    <li v-for="letter in letters" :key="letter">
+      {{ letter }}
+    </li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E']
+    }
+  });
+
+  setTimeout(() => app.letters.splice(2, 0, 'F'), 3000);
+</script>
+
+</body>
+</html>
