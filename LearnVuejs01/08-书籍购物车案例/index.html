@@ -1,0 +1,195 @@
+<!--
+@author Orange
+@date 2021-05-09
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>08-书籍购物车案例</title>
+  <style>
+      table {
+          border: 1px solid #e9e9e9;
+          border-collapse: collapse;
+          border-spacing: 0;
+      }
+
+      th, td {
+          padding: 8px 16px;
+          border: 1px solid #e9e9e9;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f7f7f7;
+          color: #5c6b77;
+          font-weight: 600;
+      }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div v-if="books.length">
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>书籍名称</th>
+        <th>出版日期</th>
+        <th>价格</th>
+        <th>购买数量</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(book, index) in books" :key="book.id">
+        <td>{{book.id}}</td>
+        <td>{{book.name}}</td>
+        <td>{{book.date}}</td>
+        <td>{{book.price | showPrice}}</td>
+        <td>
+          <button @click="decrement(book)" :disabled="book.count <= 1">-</button>
+          {{book.count}}
+          <button @click="increment(book)">+</button>
+        </td>
+        <td>
+          <button @click="removeBook(index)">移除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h2>总价格 {{totalPrice | showPrice}}</h2>
+  </div>
+  <h2 v-else>购物车为空</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      books: [
+        {
+          id: 1,
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.10,
+          count: 1
+        }, {
+          id: 2,
+          name: '《UNIX编程艺术》',
+          date: '2006-2',
+          price: 59.00,
+          count: 1
+        }, {
+          id: 3,
+          name: '《编程珠玑》',
+          date: '2008-10',
+          price: 39.00,
+          count: 1
+        }, {
+          id: 4,
+          name: '《代码大全》',
+          date: '2006-3',
+          price: 128.00,
+          count: 1
+        },
+      ]
+    },
+    methods: {
+      // getFinalPrice(price) {
+      //   return '¥' + price.toFixed(2)
+      // }
+      decrement(book) {
+        if (book.count > 1) {
+          book.count--;
+        }
+      },
+      increment(book) {
+        book.count++;
+      },
+      removeBook(index) {
+        this.books.splice(index, 1);
+      }
+    },
+    computed: {
+      totalPrice() {
+        return this.books.reduce((previousValue, book) => previousValue + book.price * book.count, 0);
+
+        // 1. 普通的 for 循环: fori + Tab键
+        let totalPrice = 0;
+        for (let i = 0; i < this.books.length; i++) {
+          totalPrice += this.books[i].price * this.books[i].count;
+        }
+
+        return totalPrice;
+
+        // 2. forin
+        for (const booksKey in this.books) {
+          totalPrice += this.books[booksKey].price * this.books[booksKey].count;
+        }
+
+        return totalPrice;
+
+        // 3. forof
+        for (const book of this.books) {
+          totalPrice += book.price * book.count;
+        }
+
+        return totalPrice;
+      }
+    },
+    filters: {
+      showPrice(price) {
+        return '¥' + price.toFixed(2)
+      }
+    }
+  });
+
+
+  // 编程范式: 命令式编程/声明式编程
+  // 编程范式: 面向对象编程(第一公民: 对象)/函数式编程(第一公民: 函数)
+  const nums = [10, 20, 111, 222, 444, 40, 50];
+
+  // 1. 需求: 取出所有小于 100 的数字
+  let newNums = [];
+  for (const num of nums) {
+    if (num < 100) {
+      newNums.push(num);
+    }
+  }
+
+  // 2. 将所有小于 100 的数字进行转化: 全部 * 2
+  let new2Nums = [];
+  for (const newNum of newNums) {
+    new2Nums.push(newNum * 2);
+  }
+
+  console.log(new2Nums);
+
+  // 3. 将所有 new2Nums 数字相加, 得到最终的结果
+  let total = 0;
+  for (const new2Num of new2Nums) {
+    total += new2Num;
+  }
+
+  console.log(total); // => 240
+
+  // filter/map/reduce
+  // 1. 需求: 取出所有小于 100 的数字<filter>
+  // ## filter: 返回一个 boolean,
+  // - 当返回 true 时, 函数内部会自动将这次回调的元素加入到新的数组中
+  // - 当返回 false 时, 函数内部会过滤这次的元素
+
+  // 2. 将所有小于 100 的数字进行转化: 全部 * 2<map>
+  // ## map: 遍历所有元素
+
+  // 3. 将所有 new2Nums 数字相加, 得到最终的结果<reduce>
+  // ## reduce(刚开始调用初始值之后为上次函数返回的值, 设置初始值)
+  console.log(nums.filter((num) => num < 100).map((num) => num * 2).reduce((previousValue, num) => previousValue + num, 0)); // => 240
+
+</script>
+
+</body>
+</html>
