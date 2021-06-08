@@ -1,0 +1,74 @@
+<!--
+@author Orange
+@date 2021-05-25
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>10-组件通信-子传父(自定义事件)</title>
+</head>
+<body>
+<!--
+子组件向组件传递数据需要使用 `自定义事件` 来完成
+自定义事件的流程:
+ - 在子组件中, 通过 $emit() 来触发事件
+ - 在父组件中, 通过 v-on 来监听子组件事件
+-->
+
+<div id="app">
+  <!-- v-on 指令还可以监听组件间的自定义事件 -->
+  <cpn @btn-click="btnClick"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <button v-for="item in categories"
+            :key="item.id"
+            @click="btnClick(item)">
+      {{item.name}}
+    </button>
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  // 子组件
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        categories: [
+          {id: 'aaa', name: '热门推荐'},
+          {id: 'bbb', name: '手机数码'},
+          {id: 'ccc', name: '家用家电'},
+          {id: 'ddd', name: '电脑办公'}
+        ]
+      }
+    },
+    methods: {
+      btnClick(item) {
+        // 发射事件
+        this.$emit('btn-click', item);
+      }
+    }
+  }
+
+  // 父组件
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      btnClick(item) {
+        alert(item.name);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

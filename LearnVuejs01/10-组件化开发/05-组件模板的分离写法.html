@@ -1,0 +1,54 @@
+<!--
+@author Orange
+@date 2021-05-23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>05-组件模板的分离写法</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn></cpn>
+  <cpn2></cpn2>
+</div>
+
+<!-- 第一种模板分离 -->
+<script type="text/x-template" id="cpn">
+  <div>
+    <h2>我是标题</h2>
+    <p>我是内容, 哈哈哈</p>
+  </div>
+</script>
+
+<!-- 第二种模板分离 -->
+<template id="cpn2">
+  <div>
+    <h2>我是标题2</h2>
+    <p>我是内容, 哈哈哈</p>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  // 注册一个全局组件
+  Vue.component('cpn', {
+    template: "#cpn"
+  });
+
+  Vue.component('cpn2', {
+    template: "#cpn2"
+  });
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    }
+  });
+</script>
+
+</body>
+</html>

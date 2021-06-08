@@ -1,0 +1,56 @@
+<!--
+@author Orange
+@date 2021-05-23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-父组件和子组件</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn2></cpn2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  // 创建第一个组件构造器(子组件)
+  const cpnC1 = Vue.extend({
+    template: `
+          <div>
+            <h2>我是子组件</h2>
+            <p>我是内容, 哈哈哈</p>
+          </div>
+        `
+  });
+
+  // 创建第二个组件构造器(父组件)
+  const cpnC2 = Vue.extend({
+    template: `
+          <div>
+          <h2>我是父组件</h2>
+          <p>我是内容, 哈哈哈</p>
+          <cpn1></cpn1>
+          </div>
+        `,
+    components: {
+      // 子组件
+      cpn1: cpnC1
+    }
+  });
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn2: cpnC2
+    }
+  });
+</script>
+
+</body>
+</html>

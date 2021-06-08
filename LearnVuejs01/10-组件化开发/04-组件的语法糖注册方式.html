@@ -1,0 +1,48 @@
+<!--
+@author Orange
+@date 2021-05-23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04-组件的语法糖注册方式</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn1></cpn1>
+  <cpn2></cpn2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+
+  // 语法糖主要是省去了调用 Vue.extend() 的步骤, 直接用对象代替
+  // 注册全局组件的语法糖
+  Vue.component('cpn1', {
+    template: `
+      <div>
+        <h2>我是标题</h2>
+      </div>`
+  });
+
+  // 注册局部组件的语法糖
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn2: {
+        template: `
+          <div>
+            <h2>我是标题</h2>
+          </div>`
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

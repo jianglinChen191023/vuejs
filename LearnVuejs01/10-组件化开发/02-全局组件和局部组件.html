@@ -1,0 +1,50 @@
+<!--
+@author Orange
+@date 2021-05-18
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-全局组件和局部组件</title>
+</head>
+<body>
+<div id="app">
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+</div>
+<div id="app2">
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  // 注册组件，传入一个选项对象 (自动调用 Vue.extend)
+  Vue.component('my-cpn', {
+    template: `<div><h2>全局组件</h2></div>`
+  });
+
+  new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      myCpn: {
+        template: `<div><h2>局部组件</h2></div>`
+      }
+    }
+  });
+
+  new Vue({
+    el: '#app2',
+    data: {
+      message: '你好啊'
+    }
+  });
+</script>
+
+</body>
+</html>
