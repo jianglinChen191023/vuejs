@@ -1,0 +1,65 @@
+<!--
+@author Orange
+@date 2021-06-22
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03-箭头函数中的this的使用</title>
+</head>
+<body>
+
+<script>
+  // 什么时候使用箭头
+  // setTimeout(function () {
+  //   // Window
+  //   console.log(this)
+  // }, 1000);
+  //
+  // setTimeout(() => {
+  //   // Window
+  //   console.log(this)
+  // }, 1000);
+
+  // 结论: 箭头函数中的 this 引用的就是最近作用域中的 this
+  // 问题: 箭头函数中的 this 是如何查找的
+  // 答案: 向外层作用域中, 一层层找 this, 知道有 this 的定义
+  const obj = {
+    aaa() {
+      setTimeout(function () {
+        // Window
+        console.log(this);
+
+        setTimeout(function () {
+          // Window
+          console.log(this);
+        });
+
+        // Window
+        setTimeout(() => {
+          console.log(this);
+        })
+      })
+
+      setTimeout(() => {
+        // Object: obj
+        console.log(this);
+
+        setTimeout(function () {
+          // Window
+          console.log(this);
+        });
+
+        // Object
+        setTimeout(() => {
+          console.log(this);
+        })
+      })
+    },
+  }
+
+  obj.aaa();
+</script>
+</body>
+</html>
