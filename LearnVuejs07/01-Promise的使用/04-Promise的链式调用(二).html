@@ -1,0 +1,60 @@
+<!--
+@author Orange
+@date 2021-07-09
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04-Promise的链式调用(二)</title>
+</head>
+<body>
+
+<script>
+  // 网络请求: aaa
+  // 处理: aaa111
+  // 处理: aaa111222
+
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('aaa');
+    }, 1000);
+  }).then(res => {
+    // 1. 自己处理10行代码
+    console.log(res, '第一层的10行处理代码');
+
+    // 2. 对我们的结果进行第一层处理
+    // 2.1
+    // return new Promise((resolve) => {
+    //   resolve(res + '111');
+    // })
+
+    // 2.2
+    // return Promise.resolve(res + '111');
+
+    // 2.3 省略掉 Promise.resolve(), 内部会对它 Promise 包装
+    // return res + '111';
+
+    // 拒绝
+    // return Promise.reject('err');
+    // 也可以被捕获
+    throw 'error message';
+  }).then(res => {
+    console.log(res, '第二次的10行处理代码');
+
+    // return new Promise((resolve) => {
+    //     resolve(res + '222');
+    // })
+    // return Promise.resolve(res + '222');
+
+    return res + '222';
+  }).then(res => {
+    console.log(res, '第三层的10行处理代码')
+  }).catch((err) => {
+    console.log(err);
+  })
+
+</script>
+</body>
+</html>

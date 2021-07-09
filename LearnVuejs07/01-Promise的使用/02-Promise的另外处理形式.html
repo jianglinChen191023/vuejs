@@ -1,0 +1,30 @@
+<!--
+@author Orange
+@date 2021-07-08
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-Promise的另外处理形式</title>
+</head>
+<body>
+
+<script>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve('success');
+      reject('error');
+    }, 1000);
+  }).then(
+      // 第一个函数, 满足
+      (data) => {
+        console.log(data);
+      },
+      // 第二个函数, 拒绝
+      (err) => {
+        console.log(err);
+      })
+</script>
+</body>
+</html>

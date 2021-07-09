@@ -1,0 +1,79 @@
+<!--
+@author Orange
+@date 2021-07-07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>01-Promise的基本使用</title>
+</head>
+<body>
+
+<script>
+  // 1. 使用 setTimeout
+  // setTimeout(() => {
+  //   console.log('Hello World');
+  // }, 1000);
+
+  // 参数 -> 函数(resolve, reject)
+  // resolve, reject 本身就是函数
+  // 链式编程
+  new Promise((resolve, reject) => {
+
+    // 1. 第一次网络请求的代码
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  }).then(() => {
+    // 第一次拿到结果的处理代码
+    console.log('Hello World');
+
+    return new Promise((resolve, reject) => {
+      // 第二次网络请求的代码
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+  }).then(() => {
+    // 第二次处理的代码
+    console.log('Hello Vuejs');
+
+    return new Promise((resolve, reject) => {
+      // 第三次网络请求的代码
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+  }).then(() => {
+    // 第三次处理的代码
+    console.log('Hello Python');
+  });
+
+  // 什么情况下会用到 Promise?
+  // 一般情况下是有异步操作时, 使用 Promise 对这个异步操作进行封装
+  // 在执行传入的回调函数时, 会传入连个参数, resolve, reject, 本身又是函数
+
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      // 成功时调用
+      resolve('==== Hello World');
+    }, 1000);
+  }).then((data) => {
+    // 1. 100行的处理代码
+    console.log(data);
+  })
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // 失败时调用
+      reject('==== error message');
+    }, 1000);
+  }).then(() => {
+  }).catch((error) => {
+    console.log(error);
+  })
+
+</script>
+</body>
+</html>
