@@ -1,0 +1,163 @@
+<!--
+@author Orange
+@date 2021-07-31
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>01-BScroll的基本使用</title>
+  <style>
+      .content {
+          height: 200px;
+          background-color: red;
+
+          overflow: hidden;
+      }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="content">
+    <ul>
+      <button class="btn">按钮</button>
+      <li>列表数1</li>
+      <li>列表数2</li>
+      <li>列表数3</li>
+      <li>列表数4</li>
+      <li>列表数5</li>
+      <li>列表数6</li>
+      <li>列表数7</li>
+      <li>列表数8</li>
+      <li>列表数9</li>
+      <li>列表数10</li>
+      <li>列表数11</li>
+      <li>列表数12</li>
+      <li>列表数13</li>
+      <li>列表数14</li>
+      <li>列表数15</li>
+      <li>列表数16</li>
+      <li>列表数17</li>
+      <li>列表数18</li>
+      <li>列表数19</li>
+      <li>列表数20</li>
+      <li>列表数21</li>
+      <li>列表数22</li>
+      <li>列表数23</li>
+      <li>列表数24</li>
+      <li>列表数25</li>
+      <li>列表数26</li>
+      <li>列表数27</li>
+      <li>列表数28</li>
+      <li>列表数29</li>
+      <li>列表数30</li>
+      <li>列表数31</li>
+      <li>列表数32</li>
+      <li>列表数33</li>
+      <li>列表数34</li>
+      <li>列表数35</li>
+      <li>列表数36</li>
+      <li>列表数37</li>
+      <li>列表数38</li>
+      <li>列表数39</li>
+      <li>列表数40</li>
+      <li>列表数41</li>
+      <li>列表数42</li>
+      <li>列表数43</li>
+      <li>列表数44</li>
+      <li>列表数45</li>
+      <li>列表数46</li>
+      <li>列表数47</li>
+      <li>列表数48</li>
+      <li>列表数49</li>
+      <li>列表数50</li>
+      <li>列表数51</li>
+      <li>列表数52</li>
+      <li>列表数53</li>
+      <li>列表数54</li>
+      <li>列表数55</li>
+      <li>列表数56</li>
+      <li>列表数57</li>
+      <li>列表数58</li>
+      <li>列表数59</li>
+      <li>列表数60</li>
+      <li>列表数61</li>
+      <li>列表数62</li>
+      <li>列表数63</li>
+      <li>列表数64</li>
+      <li>列表数65</li>
+      <li>列表数66</li>
+      <li>列表数67</li>
+      <li>列表数68</li>
+      <li>列表数69</li>
+      <li>列表数70</li>
+      <li>列表数71</li>
+      <li>列表数72</li>
+      <li>列表数73</li>
+      <li>列表数74</li>
+      <li>列表数75</li>
+      <li>列表数76</li>
+      <li>列表数77</li>
+      <li>列表数78</li>
+      <li>列表数79</li>
+      <li>列表数80</li>
+      <li>列表数81</li>
+      <li>列表数82</li>
+      <li>列表数83</li>
+      <li>列表数84</li>
+      <li>列表数85</li>
+      <li>列表数86</li>
+      <li>列表数87</li>
+      <li>列表数88</li>
+      <li>列表数89</li>
+      <li>列表数90</li>
+      <li>列表数91</li>
+      <li>列表数92</li>
+      <li>列表数93</li>
+      <li>列表数94</li>
+      <li>列表数95</li>
+      <li>列表数96</li>
+      <li>列表数97</li>
+      <li>列表数98</li>
+      <li>列表数99</li>
+      <li>列表数100</li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="./bscroll.js"></script>
+<script>
+  // 1. 默认情况下 BScroll 是不可以实时监听滚动位置
+  // 1.1 probe 侦测
+  // - 0 都是不侦测
+  // - 1 会非实时（屏幕滑动超过一定时间后）派发scroll 事件
+  // - 2 在手指滚动的过程中侦测, 手指离开后的惯性滚动过程中不侦测
+  // - 3 只要是滚动, 都侦测
+  let bscroll = new BScroll(document.querySelector('.content'), {
+    probeType: 2,
+    pullUpLoad: true
+  })
+
+  // 实时监听滚动位置
+  bscroll.on('scroll', position => {
+    // console.log(position); // Object {x: 0, y: -1437.99}
+  })
+
+  document.querySelector('.btn').addEventListener('click', function () {
+    console.log('----');
+  })
+
+  bscroll.on('pullingUp', () => {
+    console.log('上拉加载更多');
+    // 发送网络请求, 请求更多页数据
+
+    // 等数据请求完成, 并且将新的数据展示出来后
+    setTimeout(() => {
+      bscroll.finishPullUp();
+    }, 2000)
+  })
+</script>
+</body>
+</html>
