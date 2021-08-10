@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <goods-list-item v-for="item in goods" :goods-item="item" :key="item"></goods-list-item>
+    <goods-list-item v-for="item in goods" :goods-item="item" :key="item.id"></goods-list-item>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
 
   padding: 2px;
 
-  /*  */
   position: relative;
   bottom: 50px;
 }
