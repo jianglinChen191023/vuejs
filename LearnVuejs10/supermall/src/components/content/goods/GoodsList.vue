@@ -30,8 +30,5 @@ export default {
   justify-content: space-around;
 
   padding: 2px;
-
-  position: relative;
-  bottom: 50px;
 }
 </style>
