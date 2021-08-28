@@ -41,6 +41,22 @@ export function getDetail(id) {
         name: '仲陌美',
         allGoods: 'http://m.meilishuo.com',
         shopLogo: '//s11.mogucdn.com/mlcdn/c45406/170714_0cg7e9a3ldij28dikejaef50ih38g_300x300.jpg'
+      },
+      detailInfo: {
+        desc: '新款上市',
+        detailImage: [
+          {
+            key: '穿着效果',
+            list: [
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg',
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg',
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg',
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg',
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg',
+              '//s11.mogucdn.com/mlcdn/c45406/180625_48lbieiji2j42ck246eb9jc2l6770_800x800.jpg'
+            ]
+          }
+        ]
       }
     }
   }
