@@ -20,8 +20,4 @@ export default {
 
 <style>
 @import "assets/css/base.css";
-
-.main-tab-bar {
-  z-index: 100;
-}
 </style>
