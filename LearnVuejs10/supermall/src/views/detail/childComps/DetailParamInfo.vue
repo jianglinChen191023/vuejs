@@ -15,8 +15,8 @@
         <td class="param-value">{{ info.value }}</td>
       </tr>
     </table>
-
-    <div class="info-img" v-if="paramInfo.images.length !== 0">
+    
+    <div class="info-img" v-if="paramInfo.image.length !== 0">
       <img :src="paramInfo.image" alt="">
     </div>
   </div>

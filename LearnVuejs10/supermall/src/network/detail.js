@@ -94,6 +94,28 @@ export function getDetail(id) {
             ]
           ]
         }
+      },
+      rate: {
+        cRate: 10,
+        imgTotal: 0,
+        list: [
+          {
+            canExplain: 0,
+            content: '刚好合适, 物美价廉, 衣服面料很好, 穿着很舒服, 版型也好看, 非常棒',
+            created: 1535694719,
+            extraInfo: '',
+            images: {},
+            isAnoymous: '',
+            isEmpty: '',
+            level: '',
+            rateId: '',
+            style: '颜色: 上衣+裤子 尺码: M',
+            user: {
+              avatar: '',
+              uname: '糖糖闯江湖'
+            }
+          }
+        ]
       }
     }
   }
