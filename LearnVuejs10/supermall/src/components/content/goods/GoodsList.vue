@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <goods-list-item v-for="item in goods" :goods-item="item" :key="item.id"></goods-list-item>
+    <goods-list-item v-for="item in goods" :goods-item="item" :key="goodsId(item)"></goods-list-item>
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    goodsId(item) {
+      return item.id || item.shop_id;
     }
   }
 }

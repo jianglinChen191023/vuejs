@@ -121,6 +121,53 @@ export function getDetail(id) {
   }
 }
 
+export function getRecommend() {
+  return {
+    data: {
+      context: {
+        currentTime: 1540114164
+      },
+      isEnd: false,
+      list: [
+        {
+          acm: '3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          cfav: 10880,
+          discount: 700,
+          discountPrice: 59.00,
+          image: 'http://s3.mogucdn.com/mlcdn/c45406/170915_0a93207ci28kelh617k4hh62l65lb_640x960.jpg',
+          isShelf: 0,
+          itemLikes: 10880,
+          itemSale: 661,
+          item_h5_url: 'http://item.meilishuo.com/detail/1kkf1di?acm=3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          item_id: '1kkf1di',
+          item_url: 'http://item.meilishuo.com/detail/1kkf1di?acm=3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          price: 84.29,
+          shop_id: '1pzayc',
+          title: '2018春秋季新款字母短款套头长袖T恤卫衣女显瘦破洞乞丐毛边直筒牛仔裤女长裤时尚套装两件套',
+          tradeItemId: 621808703
+        },
+        {
+          acm: '3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          cfav: 10880,
+          discount: 700,
+          discountPrice: 59.00,
+          image: 'http://s3.mogucdn.com/mlcdn/c45406/170915_0a93207ci28kelh617k4hh62l65lb_640x960.jpg',
+          isShelf: 0,
+          itemLikes: 10880,
+          itemSale: 661,
+          item_h5_url: 'http://item.meilishuo.com/detail/1kkf1di?acm=3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          item_id: '1kkf1di',
+          item_url: 'http://item.meilishuo.com/detail/1kkf1di?acm=3.mce.2_4_1kkf1di.6011.0-41756.xSEtnr76nBiNW.sd_119_115-mid_6011-pos_0-lc_201',
+          price: 84.29,
+          shop_id: '1pzayc2',
+          title: '2018春秋季新款字母短款套头长袖T恤卫衣女显瘦破洞乞丐毛边直筒牛仔裤女长裤时尚套装两件套',
+          tradeItemId: 621808703
+        }
+      ]
+    }
+  }
+}
+
 export class Goods {
   constructor(itemInfo, columns, services) {
     this.title = itemInfo.title;

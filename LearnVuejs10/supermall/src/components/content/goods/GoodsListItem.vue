@@ -1,9 +1,9 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <img :src="showImage" alt="" @load="imageLoad">
 
     <div class="goods-info">
-      <p>{{ goodsItem.title }}</p>
+      <p>{{ goodsItem.title | showTitle }}</p>
       <span class="price">{{ goodsItem.price }}</span>
       <span class="collect">{{ goodsItem.cfav }}</span>
     </div>
@@ -19,6 +19,16 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  computed: {
+    showImage() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    }
+  },
+  filters: {
+    showTitle(value) {
+      return value.length > 13 ? value.substr(0, 13) + '...' : value;
     }
   },
   methods: {
