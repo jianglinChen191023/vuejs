@@ -26,6 +26,7 @@ import Scroll from "components/common/scroll/Scroll";
 import GoodsList from "components/content/goods/GoodsList";
 
 import {getDetail, getRecommend, Goods, Shop, GoodsParam} from "network/detail";
+import {debounce} from "common/utils";
 import {itemListenerMixin} from "common/mixin";
 
 
@@ -91,7 +92,7 @@ export default {
   },
   methods: {
     imageLoad() {
-      this.refs.scroll.refresh();
+      this.refresh();
     }
   },
   destroyed() {
