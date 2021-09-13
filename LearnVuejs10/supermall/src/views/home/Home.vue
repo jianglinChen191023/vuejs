@@ -51,6 +51,7 @@ import BackTop from "components/content/backTop/BackTop";
 
 import {getHomeMultidata, getHomeGoods} from "network/home";
 import {debounce} from "common/utils";
+import {itemListenerMixin} from "common/mixin";
 
 export default {
   name: "Home",
@@ -64,6 +65,7 @@ export default {
     Scroll,
     BackTop
   },
+  mixins: [itemListenerMixin],
   data() {
     return {
       titles: ['流行', '新款', '精选'],
@@ -105,6 +107,7 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
+      itemImgListener: null,
       goods: {
         'pop': {
           page: 0,
@@ -257,7 +260,11 @@ export default {
     this.$refs.scroll.refresh();
   },
   deactivated() {
+    // 1. 保存 Y 值
     this.saveY = this.$refs.scroll.getScrollY();
+
+    // 2. 取消全局事件的监听
+    this.$bus.$off('itemImageLoad', this.itemImgListener);
   },
   created() {
     // 1. 请求多个数据
@@ -274,13 +281,6 @@ export default {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
       // console.log(this.tabOffsetTop);
     }, 100);
-  },
-  mounted() {
-    // 图片加载完成的事件监听
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on('itemImageLoad', () => {
-      refresh();
-    });
   },
   methods: {
     /**
