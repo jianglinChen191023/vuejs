@@ -27,32 +27,32 @@ export default {
   },
   data() {
     return {
-      counter: 0,
-      imagesLength: 0
+      // counter: 0,
+      // imagesLength: 0
     }
   },
   methods: {
     imgLoad() {
       // 判断, 所有的图片都加载完了, 那么进行一次回调就可以了
-      if (++this.counter === this.imagesLength) {
-        this.$emit("imgLoad");
-      }
+      // if (++this.counter === this.imagesLength) {
+      this.$emit("imgLoad"); // 使用防抖函数
+      // }
     }
   },
-  computed: {
-    list() {
-      return this.detailInfo.detailImage[0].list;
-    }
-  },
-  watch: {
-    list: {
-      handler() {
-        this.imagesLength = this.detailInfo.detailImage[0].list.length;
-      },
-      deep: true,
-      immediate: true
-    }
-  }
+  // computed: {
+  //   list() {
+  //     return this.detailInfo.detailImage[0].list;
+  //   }
+  // },
+  // watch: {
+  //   list: {
+  //     handler() {
+  //       this.imagesLength = this.detailInfo.detailImage[0].list.length;
+  //     },
+  //     deep: true,
+  //     immediate: true
+  //   }
+  // }
 }
 </script>
 

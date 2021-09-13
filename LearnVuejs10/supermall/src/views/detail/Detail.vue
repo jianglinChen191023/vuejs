@@ -27,6 +27,7 @@ import GoodsList from "components/content/goods/GoodsList";
 
 import {getDetail, getRecommend, Goods, Shop, GoodsParam} from "network/detail";
 import {itemListenerMixin} from "common/mixin";
+import {debounce} from "common/utils";
 
 export default {
   name: "Detail",
@@ -52,8 +53,9 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: {},
-      themeTopYs: []
-    }
+      themeTopYs: [],
+      getThemeTopY: null
+    };
   },
   created() {
     // 1. 保持传入的ID
@@ -89,47 +91,21 @@ export default {
     // 3 请求推荐数据
     this.recommends = getRecommend().data.list;
 
-    /*
-    // 1. 第一次获取, 值不对
-    // 值不对的原因: this.$refs.params.$el 压根没有渲染
-    this.themeTopYs = [];
-    this.themeTopYs.push(0);
-    this.themeTopYs.push(this.$refs.params.$el.offsetTop);
-    this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
-    this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
-    console.log(this.themeTopYs)
-
-    this.$nextTick(() => {
-      // 2. 第二次获取
-      // 值不对的原因: 图片没有计算在内
-
-      // 根据最新的数据, 对应的 DOM 已经被渲染出来了
-      // 但是图片依然是没有加载完的
-      // offsetTop 值不对的时候, 一般都是图片的问题
+    // 4. 给 getThemeTopY 赋值(对给 this.themeTopYs 赋值操作进行防抖)
+    this.getThemeTopY = debounce(() => {
       this.themeTopYs = [];
       this.themeTopYs.push(0);
-      // 参数
       this.themeTopYs.push(this.$refs.params.$el.offsetTop);
-      // 评论
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
-      // 推荐
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
-      console.log(this.themeTopYs)
-    });
-     */
-
+    }, 50);
   },
   mounted() {
   },
   methods: {
     imgLoad() {
       this.refresh();
-
-      this.themeTopYs = [];
-      this.themeTopYs.push(0);
-      this.themeTopYs.push(this.$refs.params.$el.offsetTop);
-      this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
-      this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      this.getThemeTopY();
     },
     titleClick(index) {
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
