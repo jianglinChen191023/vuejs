@@ -39,10 +39,18 @@ export default {
       }
     }
   },
+  computed: {
+    list() {
+      return this.detailInfo.detailImage[0].list;
+    }
+  },
   watch: {
-    detailInfo() {
-      // 获取图片个数
-      this.imagesLength = this.detailInfo.detailImage[0].list.length;
+    list: {
+      handler() {
+        this.imagesLength = this.detailInfo.detailImage[0].list.length;
+      },
+      deep: true,
+      immediate: true
     }
   }
 }
