@@ -1,7 +1,11 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
-    <scroll class="content" ref="scroll">
+    <detail-nav-bar class="detail-nav"
+                    @titleClick="titleClick"
+                    ref="nav"/>
+    <scroll class="content" ref="scroll"
+            :probe-type="3"
+            @scroll="contentScroll">
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
@@ -98,6 +102,8 @@ export default {
       this.themeTopYs.push(this.$refs.params.$el.offsetTop);
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      this.themeTopYs.push(Number.MAX_VALUE);
+      console.log(this.themeTopYs)
     }, 50);
   },
   mounted() {
@@ -109,6 +115,31 @@ export default {
     },
     titleClick(index) {
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
+    },
+    contentScroll(position) {
+      // 1. 获取 y 值
+      const positionY = -position.y;
+
+      // 2. positoinY 和 主题[this.themeTopYs]中的值进行对比
+      // [0, 2800, 3687, 3893]
+
+      // 2.0 条件1
+      // 如果标题指针 和 循环指针一致则继续下一个
+
+      // 2.1 条件1.1
+      // positionY 在 0 和 2800 之间, index = 0
+      // positionY 在 =2800 和 3687 之间, index = 1
+      // positionY 在 =3687 和 3893 之间, index = 2
+      // positionY 在 =3893 和 Number.MAX_VALUE 之间, index = 3
+
+      const length = this.themeTopYs.length;
+      const currentIndex = this.$refs.nav.currentIndex;
+      for (let i = 0; i < length - 1; i++) {
+        if (currentIndex !== i && positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i + 1]) {
+          this.$refs.nav.currentIndex = i;
+          break;
+        }
+      }
     }
   },
   destroyed() {
