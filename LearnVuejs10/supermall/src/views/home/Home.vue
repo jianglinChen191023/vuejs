@@ -30,10 +30,10 @@
                    ref="tabControl2" v-show="!isTabFixed">
       </tab-control>
 
-      <goods-list :goods="showGoods"></goods-list>
+      <goods-list :goods="showGoods"/>
     </scroll>
 
-    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+    <back-top @click.native="backClick" v-show="isShowBackTop"/>
 
   </div>
 </template>
@@ -47,11 +47,10 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/common/scroll/Scroll";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
-import BackTop from "components/content/backTop/BackTop";
 
 import {getHomeMultidata, getHomeGoods} from "network/home";
 import {debounce} from "common/utils";
-import {itemListenerMixin} from "common/mixin";
+import {itemListenerMixin, backTopMixin} from "common/mixin";
 
 export default {
   name: "Home",
@@ -63,9 +62,8 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   data() {
     return {
       titles: ['流行', '新款', '精选'],
@@ -103,7 +101,6 @@ export default {
         }
       ],
       currentType: 'pop',
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
@@ -291,7 +288,7 @@ export default {
     },
     contentScroll(position) {
       // 监听 BackTop 是否显示
-      this.isShowBackTop = -(position.y) > 1000;
+      this.listenerShowBackTop(position);
 
       // 监听 TabControl 是否吸顶 (position: fixed), 变量 isTabFixed
       this.isTabFixed = (-position.y) > this.tabOffsetTop;
@@ -300,9 +297,6 @@ export default {
       this.getHomeGoods(this.currentType);
 
       this.$refs.scroll.refresh();
-    },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
     },
     tabClick(index) {
       switch (index) {
