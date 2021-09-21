@@ -6,6 +6,11 @@
     <scroll class="content" ref="scroll"
             :probe-type="3"
             @scroll="contentScroll">
+<!--      <div>-->
+<!--        <li v-for="item in $store.state.cartList ">-->
+<!--          {{item}}-->
+<!--        </li>-->
+<!--      </div>-->
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
@@ -125,7 +130,7 @@ export default {
       product.id = this.id;
 
       // 2. 将商品添加到购物车里
-      console.log(product)
+      this.$store.commit('addCart', product);
     },
     imgLoad() {
       this.refresh();
