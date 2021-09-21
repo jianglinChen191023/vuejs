@@ -17,7 +17,7 @@
 
     <back-top @click.native="backClick" v-show="isShowBackTop"/>
 
-    <detail-bottom-bar/>
+    <detail-bottom-bar @addCart="addToCart"/>
   </div>
 </template>
 
@@ -109,12 +109,24 @@ export default {
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
       this.themeTopYs.push(Number.MAX_VALUE);
-      console.log(this.themeTopYs)
+      // console.log(this.themeTopYs)
     }, 50);
   },
   mounted() {
   },
   methods: {
+    addToCart() {
+      // 1. 获取购物车需要展示的信息
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.realPrice;
+      product.id = this.id;
+
+      // 2. 将商品添加到购物车里
+      console.log(product)
+    },
     imgLoad() {
       this.refresh();
       this.getThemeTopY();
