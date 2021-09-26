@@ -1,9 +1,6 @@
 <template>
   <div class="toast" v-show="show">
-    <div class="toast-flex">
-      <span>{{ message }}</span>
-    </div>
-
+    <span class="message">{{ message }}</span>
   </div>
 </template>
 
@@ -34,19 +31,12 @@ export default {
 
   transform: translate(-50%, -50%);
 
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, .6);
   color: #fff;
-
-  width: 200px;
 }
 
-.toast-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-span {
+.message {
+  white-space: nowrap;
   font-size: 14px;
 }
 
