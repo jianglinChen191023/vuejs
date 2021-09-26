@@ -38,6 +38,8 @@ import {getDetail, getRecommend, Goods, Shop, GoodsParam} from "network/detail";
 import {itemListenerMixin, backTopMixin} from "common/mixin";
 import {debounce} from "common/utils";
 
+import {mapActions} from 'vuex'
+
 export default {
   name: "Detail",
   components: {
@@ -115,6 +117,9 @@ export default {
   mounted() {
   },
   methods: {
+    ...mapActions({
+      addCart: 'addCart'
+    }),
     addToCart() {
       // 1. 获取购物车需要展示的信息
       const product = {};
@@ -125,8 +130,19 @@ export default {
       product.id = this.id;
 
       // 2. 将商品添加到购物车里
+      // 2.1 Promise
+      // 2.2 mapActions
       // this.$store.commit('addCart', product);
-      this.$store.dispatch('addCart', product);
+
+      // this.$store.dispatch('addCart', product)
+      //   .then(res => {
+      //     console.log(res);
+      //   });
+
+      this.addCart(product)
+        .then(res => {
+          console.log(res);
+        });
     },
     imgLoad() {
       this.refresh();
