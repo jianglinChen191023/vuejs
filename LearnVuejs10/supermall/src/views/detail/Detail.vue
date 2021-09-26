@@ -18,6 +18,8 @@
     <back-top @click.native="backClick" v-show="isShowBackTop"/>
 
     <detail-bottom-bar @addCart="addToCart"/>
+
+    <toast :message="message" :show="show"/>
   </div>
 </template>
 
@@ -40,6 +42,8 @@ import {debounce} from "common/utils";
 
 import {mapActions} from 'vuex'
 
+import Toast from 'components/common/toast/Toast'
+
 export default {
   name: "Detail",
   components: {
@@ -52,7 +56,8 @@ export default {
     DetailCommentInfo,
     DetailBottomBar,
     Scroll,
-    GoodsList
+    GoodsList,
+    Toast
   },
   mixins: [itemListenerMixin, backTopMixin],
   data() {
@@ -66,7 +71,9 @@ export default {
       commentInfo: {},
       recommends: {},
       themeTopYs: [],
-      getThemeTopY: null
+      getThemeTopY: null,
+      message: '',
+      show: false
     };
   },
   created() {
@@ -141,7 +148,13 @@ export default {
 
       this.addCart(product)
         .then(res => {
-          console.log(res);
+          this.show = true;
+          this.message = res;
+
+          setTimeout(() => {
+            this.show = false;
+            this.message = '';
+          }, 1500);
         });
     },
     imgLoad() {
