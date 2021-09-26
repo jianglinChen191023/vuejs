@@ -1,6 +1,8 @@
 <template>
-  <div class="check-button" :class="{'check': isChecked}">
-    <img src="~assets/img/cart/tick.svg" alt="" v-show="isChecked">
+  <div>
+    <div class="button" :class="{'check': isChecked}">
+      <img src="~assets/img/cart/tick.svg" alt="" v-show="isChecked">
+    </div>
   </div>
 </template>
 
@@ -19,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.check-button {
+.button {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -30,12 +32,12 @@ export default {
   align-items: center;
 }
 
-.check-button img {
+.button img {
   width: 12px;
 }
 
 .check {
-  border-color: red;
-  background-color: red;
+  border-color: var(--color-tint);
+  background-color: var(--color-tint);
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div id="shop-item">
     <div class="item-selector">
-      <check-button :is-checked="product.checked"
+      <check-button class="check-button"
+                    :is-checked="product.checked"
                     @click.native="checkClick"/>
     </div>
 
@@ -58,6 +59,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.check-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .item-title, .item-desc {
