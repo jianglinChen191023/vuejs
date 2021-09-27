@@ -19,7 +19,7 @@
 
     <detail-bottom-bar @addCart="addToCart"/>
 
-    <toast :message="message" :show="show"/>
+<!--    <toast :message="message" :show="show"/>-->
   </div>
 </template>
 
@@ -42,7 +42,7 @@ import {debounce} from "common/utils";
 
 import {mapActions} from 'vuex'
 
-import Toast from 'components/common/toast/Toast'
+// import Toast from 'components/common/toast/Toast'
 
 export default {
   name: "Detail",
@@ -57,7 +57,7 @@ export default {
     DetailBottomBar,
     Scroll,
     GoodsList,
-    Toast
+    // Toast
   },
   mixins: [itemListenerMixin, backTopMixin],
   data() {
@@ -72,8 +72,8 @@ export default {
       recommends: {},
       themeTopYs: [],
       getThemeTopY: null,
-      message: '',
-      show: false
+      // message: '',
+      // show: false
     };
   },
   created() {
@@ -146,15 +146,20 @@ export default {
       //     console.log(res);
       //   });
 
+      // this.addCart(product)
+      //   .then(res => {
+      //     this.show = true;
+      //     this.message = res;
+      //
+      //     setTimeout(() => {
+      //       this.show = false;
+      //       this.message = '';
+      //     }, 1500);
+      //   });
+
       this.addCart(product)
         .then(res => {
-          this.show = true;
-          this.message = res;
-
-          setTimeout(() => {
-            this.show = false;
-            this.message = '';
-          }, 1500);
+          this.$toast.show(res, 1500);
         });
     },
     imgLoad() {
@@ -201,7 +206,7 @@ export default {
 <style scoped>
 #detail {
   position: relative;
-  z-index: 9;
+  z-index: 1;
   background-color: #fff;
   height: 100vh;
 }
